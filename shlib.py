@@ -5,7 +5,7 @@ import model
 import misc
 import time
 import datetime
-import urllib2
+import urllib3
 import logging
 
 logging.basicConfig(
@@ -15,7 +15,7 @@ BASE_URL = u"http://%s.lianjia.com/" % (settings.CITY)
 
 def get_house_percommunity(communityname):
     url = BASE_URL + u"ershoufang/rs" + \
-        urllib2.quote(communityname.encode('utf8')) + "/"
+        urllib3.quote(communityname.encode('utf8')) + "/"
     source_code = misc.get_source_code(url)
     soup = BeautifulSoup(source_code, 'lxml')
 
@@ -31,7 +31,7 @@ def get_house_percommunity(communityname):
         if page > 0:
             url_page = BASE_URL + \
                 u"ershoufang/d%drs%s/" % (page,
-                                          urllib2.quote(communityname.encode('utf8')))
+                                          urllib3.quote(communityname.encode('utf8')))
             source_code = misc.get_source_code(url_page)
             soup = BeautifulSoup(source_code, 'lxml')
 
@@ -98,7 +98,7 @@ def get_house_percommunity(communityname):
 
 def get_sell_percommunity(communityname):
     url = BASE_URL + u"chengjiao/rs" + \
-        urllib2.quote(communityname.encode('utf8')) + "/"
+        urllib3.quote(communityname.encode('utf8')) + "/"
     source_code = misc.get_source_code(url)
     soup = BeautifulSoup(source_code, 'lxml')
 
@@ -114,7 +114,7 @@ def get_sell_percommunity(communityname):
         if page > 0:
             url_page = BASE_URL + \
                 u"chengjiao/d%drs%s/" % (page,
-                                         urllib2.quote(communityname.encode('utf8')))
+                                         urllib3.quote(communityname.encode('utf8')))
             source_code = misc.get_source_code(url_page)
             soup = BeautifulSoup(source_code, 'lxml')
         i = 0
@@ -250,7 +250,7 @@ def get_community_perregion(regionname=u'pudong'):
 
 def get_rent_percommunity(communityname):
     url = BASE_URL + u"zufang/rs" + \
-        urllib2.quote(communityname.encode('utf8')) + "/"
+        urllib3.quote(communityname.encode('utf8')) + "/"
     source_code = misc.get_source_code(url)
     soup = BeautifulSoup(source_code, 'lxml')
 
@@ -266,7 +266,7 @@ def get_rent_percommunity(communityname):
         if page > 0:
             url_page = BASE_URL + \
                 u"rent/d%drs%s/" % (page,
-                                    urllib2.quote(communityname.encode('utf8')))
+                                    urllib3.quote(communityname.encode('utf8')))
             source_code = misc.get_source_code(url_page)
             soup = BeautifulSoup(source_code, 'lxml')
         i = 0
