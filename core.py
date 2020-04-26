@@ -428,6 +428,43 @@ def get_rent_percommunity(city, communityname):
         time.sleep(1)
 
 
+
+def has_span_with_class_label(tag):
+    return tag.name=='li' and tag.find('span')
+
+
+def get_house_by_url(url):
+    source_code = misc.get_source_code(url)
+    soup = BeautifulSoup(source_code, 'lxml')
+    if check_block(soup):
+        return
+
+    intro = soup.find(id="introduction")
+    transaction_labels = intro.find_all(has_span_with_class_label)
+    name_dict={
+        u'配备电梯': 'elevator',
+        u'产权所属': 'propertytype',
+        u'建筑结构': 'buildingstructure',
+        u'建筑类型': 'buildingtype',
+        u'梯户比例': 'elevatorratio',
+        u'交易权属': 'transactionownership'
+    }
+    res = {}
+    for label in transaction_labels:
+        spans = label.find_all("span")
+        if len(spans) > 1:
+            key = spans[0].string.strip()
+            val = spans[1].string.strip()
+            if key in name_dict:
+                res[name_dict[key]] = val
+        elif len(spans) > 0:
+            key = spans[0].string.strip()
+            val = label.get_text()
+            if key in name_dict:
+                res[name_dict[key]] = val
+    return res
+
+
 def get_house_perregion(city, district):
     baseUrl = u"http://%s.lianjia.com/" % (city)
     url = baseUrl + u"ershoufang/%s/" % district
@@ -494,6 +531,12 @@ def get_house_perregion(city, district):
                     unitPrice = name.find("div", {"class": "unitPrice"})
                     info_dict.update(
                         {u'unitPrice': unitPrice.get("data-price")})
+
+                    # update more detail
+                    detail = get_house_by_url(housetitle.a.get('href'))
+                    info_dict.update(detail)
+                    info_dict['district'] = district
+
                 except Exception as e:
                     print(e)
                     continue
@@ -606,7 +649,7 @@ def get_communityinfo_by_url(url):
     if check_block(soup):
         return
 
-    communityinfos = soup.findAll("div", {"class": "xiaoquInfoItem"})
+    communityinfos = soup.findAll("div", {"id": "introduction"})
     res = {}
     for info in communityinfos:
         key_type = {
