@@ -324,11 +324,12 @@ def get_community_perregion(city, regionname=u'xicheng'):
                 info_dict.update({u'price': price.span.get_text().strip('\n')})
 
                 communityinfo = get_communityinfo_by_url(link)
-                for key, value in communityinfo.iteritems():
+                for key, value in communityinfo.items():
                     info_dict.update({key: value})
 
                 info_dict.update({u'city': city})
-            except:
+            except Exception as e:
+                print(e)
                 continue
             # communityinfo insert into mysql
             data_source.append(info_dict)
@@ -459,7 +460,6 @@ def get_house_perregion(city, district):
                     info_dict.update({u'link': housetitle.a.get('href')})
                     houseID = housetitle.a.get('data-housecode')
                     info_dict.update({u'houseID': houseID})
-
                     houseinfo = name.find("div", {"class": "houseInfo"})
                     info = houseinfo.get_text().split('|')
                     #info_dict.update({u'community': info[0]})
@@ -494,7 +494,8 @@ def get_house_perregion(city, district):
                     unitPrice = name.find("div", {"class": "unitPrice"})
                     info_dict.update(
                         {u'unitPrice': unitPrice.get("data-price")})
-                except:
+                except Exception as e:
+                    print(e)
                     continue
 
                 # Houseinfo insert into mysql
