@@ -74,13 +74,13 @@ class Houseinfo(BaseModel):
     followInfo = CharField()
     decoration = CharField()
     validdate = DateTimeField(default=datetime.datetime.now)
-    elevator = CharField()
-    propertytype = CharField()
-    buildingstructure = CharField()
-    buildingtype = CharField()
-    elevatorratio = CharField()
-    transactionownership = CharField()
-    district = CharField()
+    elevator = CharField(default='')
+    propertytype = CharField(default='')
+    buildingstructure = CharField(default='')
+    buildingtype = CharField(default='')
+    elevatorratio = CharField(default='')
+    transactionownership = CharField(default='')
+    district = CharField(default='')
 
 
 

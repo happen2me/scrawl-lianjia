@@ -472,11 +472,15 @@ def get_house_perregion(city, district):
     soup = BeautifulSoup(source_code, 'lxml')
     if check_block(soup):
         return
-    total_pages = misc.get_total_pages(url)
+    try:
+        total_pages = misc.get_total_pages(url)
+    except Exception as e:
+        total_pages = 0
+        print(e)
     if total_pages == None:
         row = model.Houseinfo.select().count()
         raise RuntimeError("Finish at %s because total_pages is None" % row)
-
+    # TODO gaihuilai
     for page in range(total_pages):
         if page > 0:
             url_page = baseUrl + u"ershoufang/%s/pg%d/" % (district, page)
