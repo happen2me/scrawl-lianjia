@@ -6,8 +6,8 @@
 + 此代码仅供学习与交流，请勿用于商业用途，后果自负。
 + 下图为利用爬虫数据做的微信小程序和可视化分析网站。
 + **如果觉得好，请给项目点颗星来支持吧～～** 
-![alt text](https://github.com/XuefengHuang/lianjia-scrawler/blob/master/screenshots/wechat.jpg)
-![alt text](https://github.com/XuefengHuang/lianjia-scrawler/blob/master/screenshots/homepage_1.png)
+![alt text](screenshots/wechat.jpg)
+![alt text](screenshots/homepage_1.png)
 
 ## 使用说明
 + 下载源码并安装依赖包
@@ -88,4 +88,4 @@ woaiwojia.GetSellByCommunitylist()
 ```
 
 ## 更多截图
-![alt text](https://github.com/XuefengHuang/lianjia-scrawler/blob/master/screenshots/community_1.png)
+![alt text](screenshots/community_1.png)
